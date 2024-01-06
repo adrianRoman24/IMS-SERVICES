@@ -14,7 +14,7 @@ async function main() {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
 
-    app.use(express.static(path.resolve(__dirname, 'public')));
+    app.use(express.static(path.join(__dirname, 'public')));
 
     // dummy page used to check if user is registered after login
     app.get("/views/dummy", (_, res) => {
