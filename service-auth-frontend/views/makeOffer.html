@@ -1,0 +1,123 @@
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Main menu</title>
+</head>
+<script src="../lib/functions.inc.js"></script>
+<script src="https://cdn.auth0.com/js/auth0-spa-js/1.19/auth0-spa-js.production.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script>
+// The Auth0 client, initialized in configureClient()
+  let auth0 = null;
+const configureClient = async () => {
+  auth0 = await createAuth0Client(
+    fetchCredentials()
+  );
+};
+
+window.onload = async () => {
+await configureClient();
+
+const isAuthenticated = await auth0.isAuthenticated();
+const usr = await auth0.getUser();
+var accType = usr['http://Donating-App/roles'][0];
+console.log(usr);
+var emailParam = document.getElementById('donorEmail');
+emailParam.value = usr.email;
+
+if (isAuthenticated) {
+  console.log("> User is authenticated");
+  return;
+} else {
+  loginButton(auth0);
+}
+
+console.log("> User not authenticated");
+const query = window.location.search;
+if (query.includes("code=") && query.includes("state=")) {
+
+  // Process the login state
+  await auth0.handleRedirectCallback();
+
+  // Use replaceState to redirect the user away and remove the querystring parameters
+  window.history.replaceState({}, document.title, "/");
+}
+
+};
+
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+  var yyyy = today.getFullYear();
+
+  today = yyyy + "/" + mm +'/' + dd ;
+</script>
+
+<body style=" background-size: cover; background-image: url('../assets/imgs/war.jpg'); ">
+
+
+
+<link rel="stylesheet" href="../style/makeOffer.css">
+<div class="wrapper fadeInDown">
+    <div id="formContent" style="background:#c2deec;">
+        <!-- Tabs Titles -->
+      
+        <!-- Icon -->
+        <div class="fadeIn first">
+        </div>
+
+		
+
+<!-- Login Form -->
+<section class="signup-form">
+    <h2><span id="blueColor">Create offer</span></h2>
+    <form action="/api/offer/publish" method="post" id="signupForm">
+        <input type="hidden" id="donorEmail" name="donorEmail" value="nu@yahoo.com">
+        <h2 style="color:black;">Type:</h2>
+        <input type="text" name="type" placeholder="Type...">
+        <h2 style="color:black;">Description:</h2>
+        <input type="text" name="description" placeholder="Type...">
+        <h2 style="color:black;">Location:</h2>
+        <input type="text" name="location" placeholder="Type..."><br>
+        <h2 style="color : black;" id="sliderValue"></h2>
+        <div class="slidecontainer">
+            <input type="range" min="1" max="100" value="50" class="slider" id="myRange" name="capacity">
+        </div>
+        <h1 style="float: left;">Date:</h1>
+        <input  style="position:relative; top:20px;" type="date" id="date" name="date"
+            min="2023-01-01" max="2023-12-31">
+        <button type="submit" name="submit" class="btn btn-success btn-sm" id="sign-up-button" style="width:150px; 
+        position: absolute;
+        left:150px;
+        bottom: 4px;">Publish offer</button>
+    </form>
+    
+<script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("sliderValue");
+    output.innerHTML = "Capacity: " +slider.value; // Display the default slider value
+    document.getElementById('date').value = today;
+
+    // Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function() {
+    output.innerHTML = this.value;
+    }
+
+    const form = document.getElementById( "signupForm" );
+
+    form.addEventListener( "submit", function ( event ) {
+      event.preventDefault();
+      const data = new URLSearchParams(new FormData(form));
+      formSendOffer(auth0, data);
+    } );
+</script>
+</section>
+		
+
+		

@@ -1,0 +1,34 @@
+<script src="lib/functions.inc.js"></script>
+<script src="https://cdn.auth0.com/js/auth0-spa-js/1.19/auth0-spa-js.production.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script>
+// The Auth0 client, initialized in configureClient()
+  let auth0 = null;
+  var accType;
+
+  const configureClient = async () => {
+    auth0 = await createAuth0Client(
+      fetchCredentials()
+    );
+  };
+
+  window.onload = async () => {
+  await configureClient();
+
+  const isAuthenticated = await auth0.isAuthenticated();
+  
+  if (isAuthenticated) {
+    const usr = await auth0.getUser();
+    location.href = "/views/homepage?email="+usr.email;
+    console.log("> User is authenticated");
+    return;
+  }
+  console.log("user not auth");
+  const query = window.location.search;
+  if (query.includes("code=") && query.includes("state=")) {
+    await auth0.handleRedirectCallback();
+    location.href = "/views/dummy";
+  }
+};
+</script>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <title>Homepage</title>
+
+    <link rel="stylesheet" href="assets/css/creative-design.css">
+
+</head>
+<script src="lib/functions.inc.js"></script>
+<script src="https://cdn.auth0.com/js/auth0-spa-js/1.19/auth0-spa-js.production.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script>
+// The Auth0 client, initialized in configureClient()
+  let auth0 = null;
+  var accType;
+
+  const configureClient = async () => {
+    auth0 = await createAuth0Client(
+      fetchCredentials()
+    );
+  };
+
+  window.onload = async () => {
+  await configureClient();
+
+  const isAuthenticated = await auth0.isAuthenticated();
+  
+  console.log('bbbbbbbbbbbbbbbbbbbbbbb')
+  if (isAuthenticated) {
+    console.log('aaaaaaaaaaaaaaaaaaaaa')
+    const usr = await auth0.getUser();
+    console.log(usr);
+    accType = usr['http://Donating-App/roles'][0];
+    document.getElementById('logoutButton').style.visibility = "visible";
+    document.getElementById('homeButton').style.visibility = "visible";
+    console.log('xxxxxxxxxxxxxxxxxxxxxxx')
+    document.getElementById('homeLink').href = "/views/" + accType + "/homepage";
+    return;
+    
+  } else {
+    document.getElementById('loginButton').style.visibility = "visible";
+    document.getElementById('signupButton').style.visibility = "visible";
+  //loginButton(auth0);
+}
+
+
+  console.log("> User not authenticated");
+  const query = window.location.search;
+  if (query.includes("code=") && query.includes("state=")) {
+    // Process the login state
+    await auth0.handleRedirectCallback();
+
+    // Use replaceState to redirect the user away and remove the querystring parameters
+    window.history.replaceState({}, document.title, "/");
+  }
+};
+</script>
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+    
+    <nav id="scrollspy" class="navbar page-navbar navbar-light navbar-expand-md fixed-top" data-spy="affix" data-offset-top="20">
+        <div class="container">
+            <a class="navbar-brand" href="#"> <span class="text-dark">P</span><strong class="text-primary">WEB</strong></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item" style="visibility: hidden;" id="homeButton">
+                        <a class="nav-link" id="homeLink" style="cursor:pointer;">My account</a>
+                    </li>
+                    <li class="nav-item"style="visibility: hidden;" id="loginButton">
+                        <a style="cursor:pointer;" class="nav-link" onClick="loginButton(auth0);">Log in</a>
+                    </li>
+                    <li class="nav-item" id="logoutButton" style="visibility: hidden;">
+                        <a style="cursor:pointer;" class="nav-link" onclick="logoutButton(auth0);">Log out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav><!-- End of Page Navbar -->   
+
+    <!-- Page Header -->
+    <header id="home" class="header">
+        <div class="overlay"></div>
+        <div class="header-content">
+            <h6>First official donating site in Romania</h6> 
+        </div>      
+    </header><!-- End of Page Header -->    
+    
+    <section id="about">
+        <div class="container">
+            <div class="about-wrapper">
+                <div class="after"><h1>About Us</h1></div>
+                <div class="content">
+                    <h5 class="title mb-3">What is this?</h5>
+                    <div class="row">
+                        <div class="col">
+                            <p>This is a website dedicated to helping refugees affected by war.
+                        </div>
+                        <div class="col">
+                            <p>Create an account to start using the platform</p>
+                        </div>
+                    </div>             
+                </div>
+            </div>       
+        </div>       
+     </section>   
+    
+     <section id="contact">
+         <div class="container">
+             <div class="about-wrapper">
+                 <div class="after"><h1>Contact</h1></div>
+                 <div class="content">
+                     <h5 class="title mb-3">Where to contact us:</h5>
+                     <div class="row">
+                         <div class="col">
+                             <p>Phone number: +40727855485
+                         </div>
+                         <div class="col">
+                             <p>Email: refugees_help@gmail.com</p>
+                         </div>
+                     </div>                
+                 </div>
+             </div>        
+         </div>   
+      </section>
+ 
+    <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
+    <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+    <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
+
+</body>
+</html>
