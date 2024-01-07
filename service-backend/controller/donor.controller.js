@@ -1,6 +1,6 @@
 const db = require("../models");
 const Donor = db.donor;
-const { log } = require("../utils/utils");
+const { log } = require("../../utils/utils");
 
 // create donor
 exports.create = async (req) => {

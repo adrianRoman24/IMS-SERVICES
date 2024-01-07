@@ -1,6 +1,6 @@
 module.exports = async (app) => {
     const request = require("../controller/request.controller");
-    const { log, publishRabbitAlert, initRabbit, jwtCheck } = require("../utils/utils");
+    const { log, publishRabbitAlert, initRabbit, jwtCheck } = require("../../utils/utils");
 
     const channel = await initRabbit();
     

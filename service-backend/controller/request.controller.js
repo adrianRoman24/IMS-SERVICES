@@ -2,7 +2,7 @@ const db = require("../models");
 const Request = db.request;
 const Offer = db.offer;
 const Interaction = db.interaction;
-const { log } = require("../utils/utils");
+const { log } = require("../../utils/utils");
 
 // get all requests made by a refugee
 exports.getByRefugee = async (req) => {

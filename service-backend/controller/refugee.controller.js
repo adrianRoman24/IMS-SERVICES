@@ -1,6 +1,6 @@
 const db = require("../models");
 const Refugee = db.refugee;
-const { log } = require("../utils/utils");
+const { log } = require("../../utils/utils");
 
 // create refugee
 exports.create = async(req) => {

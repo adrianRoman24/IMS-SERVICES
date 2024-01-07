@@ -1,7 +1,7 @@
 module.exports = (app) => {
     const interaction = require("../controller/interaction.controller");
-    const { log } = require("../utils/utils");
-    const { jwtCheck } = require("../utils/utils");
+    const { log } = require("../../utils/utils");
+    const { jwtCheck } = require("../../utils/utils");
 
     const router = require("express").Router();
 

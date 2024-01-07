@@ -1,6 +1,6 @@
-const dbConfig = require("../config/config-db.json");
+const dbConfig = require("../../config/config-db.json");
 const Sequelize = require("sequelize");
-const { log } = require("../utils/utils");
+const { log } = require("../../utils/utils");
 
 const sequelize = new Sequelize({
     host: dbConfig.HOST,
@@ -37,7 +37,6 @@ db.initAsync = async () => {
 db.donor = require("./donor")(sequelize, Sequelize);
 db.refugee = require("./refugee")(sequelize, Sequelize);
 db.request = require("./request")(sequelize, Sequelize);
-db.offer = require("./offer")(sequelize, Sequelize);
 db.interaction = require("./interaction")(sequelize, Sequelize);
 
 module.exports = db;

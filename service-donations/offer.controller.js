@@ -1,5 +1,4 @@
-const db = require("../models");
-const Offer = db.offer;
+const Offer = require("./offer");
 const { log } = require("../utils/utils");
 const dbConfig = require("../config/config-db.json");
 

@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <title>Main menu</title>
 </head>
-<script src="../lib/functions.inc.js"></script>
+<script src="/../lib/functions.inc.js"></script>
 <script src="https://cdn.auth0.com/js/auth0-spa-js/1.19/auth0-spa-js.production.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
@@ -68,8 +68,8 @@ var today = new Date();
 
   today = yyyy + "/" + mm +'/' + dd ;
 </script>
-<body style=" background-size: cover; background-image: url('../assets/imgs/war.jpg'); ">
-<link rel="stylesheet" href="../style/makeOffer.css">
+<body style=" background-size: cover; background-image: url('/../assets/imgs/war.jpg'); ">
+<link rel="stylesheet" href="/../style/makeOffer.css">
 <div class="wrapper fadeInDown">
     <div id="formContent" style="background:#c2deec;">
         <!-- Tabs Titles -->
@@ -83,7 +83,7 @@ var today = new Date();
 <!-- Login Form -->
 <section class="signup-form">
     <h2><span id="blueColor">Create request</span></h2>
-    <form action="/api/request/create" method="post" id="signupForm">
+    <form action="http://localhost:3001/api/request/create" method="post" id="signupForm">
       <input type="hidden" id="refugeeEmail" name="refugeeEmail" value="nu@yahoo.com">
       <input type="hidden" id="donorEmail" name="donorEmail" value="nu@yahoo.com">
       <input type="hidden" id="offerId" name="offerId" value="nu@yahoo.com">

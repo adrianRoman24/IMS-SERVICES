@@ -1,5 +1,5 @@
 module.exports = (app) => {
-    const offer = require("../controller/offer.controller");
+    const offer = require("../service-donations/offer.controller");
     const { log } = require("../utils/utils");
     const { jwtCheck } = require("../utils/utils");
 

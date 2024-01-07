@@ -10,7 +10,7 @@ const config = require("../config/config.json");
 log(config)
 
 const app = express();
-const db = require("../models");
+const db = require("./models");
 
 async function main() {
     // init database
@@ -22,11 +22,9 @@ async function main() {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
     
-    // initialize routes
-    require("../routes")(app);
+    require("./routes")(app);
     log("Routes initialized");
 
-    // listen on port 3000
     app.listen(config.SERVER_PORT, () => {
         log(`Listening on port ${config.SERVER_PORT}`);
     });

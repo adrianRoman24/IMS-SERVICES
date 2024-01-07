@@ -90,9 +90,9 @@ const viewMyOffers = async (auth0, mail) => {
 try {
   // Get the access token from the Auth0 client
   const token = await auth0.getTokenSilently();
-  const response = await fetch("/api/offer/view?donorEmail=" + mail, {
+  const response = await fetch("http://localhost:3001/api/offer/view?donorEmail=" + mail, {
     headers: {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     }
   });
 
@@ -110,7 +110,7 @@ const getProfileInfo = async (auth0, accType, mail) => {
 try {
 
   const token = await auth0.getTokenSilently();
-  const response = await fetch("/api/"+accType+"/profile?accountType="+accType+"&email="+mail, {
+  const response = await fetch("http://localhost:3001/api/"+accType+"/profile?accountType="+accType+"&email="+mail, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -131,7 +131,7 @@ try {
 
   const token = await auth0.getTokenSilently();
 
-  const response = await fetch("/api/request/viewPending?donorEmail=" + mail, {
+  const response = await fetch("http://localhost:3001/api/request/viewPending?donorEmail=" + mail, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -157,7 +157,7 @@ const viewMyRequests = async (auth0, mail) => {
 try {
   const token = await auth0.getTokenSilently();
 
-  const response = await fetch("/api/request/view?email=" + mail, {
+  const response = await fetch("http://localhost:3001/api/request/view?email=" + mail, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -177,9 +177,9 @@ try {
 
   const token = await auth0.getTokenSilently();
   
-  const response = await fetch("/api/offer/viewAll?offset=" + offset, {
+  const response = await fetch("http://localhost:3001/api/offer/viewAll?offset=" + offset, {
     headers: {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     }
   });
 
@@ -199,7 +199,7 @@ try {
 const token = await auth0.getTokenSilently();
 console.log(token);
 
-const response = await fetch("/api/request/update", {
+const response = await fetch("http://localhost:3001/api/request/update", {
   method: "put",
   body: JSON.stringify({
     requestId,
@@ -232,7 +232,7 @@ const rejectRequest = async (auth0, requestId) => {
   const token = await auth0.getTokenSilently();
   console.log(token);
   
-  const response = await fetch("/api/request/update", {
+  const response = await fetch("http://localhost:3001/api/request/update", {
     method: "PUT",
     body: JSON.stringify({
         requestId,
@@ -264,7 +264,7 @@ const token = await auth0.getTokenSilently();
 console.log(token);
 // Make the call to the API, setting the token
 // in the Authorization header
-const response = await fetch("/api/interaction/history?email=" + mail +"&accountType=" + type, {
+const response = await fetch("http://localhost:3001/api/interaction/history?email=" + mail +"&accountType=" + type, {
   headers: {
     Authorization: `Bearer ${token}`
   }
@@ -289,7 +289,7 @@ return {
 const formSendOffer = async (auth0, data) => { 
   try {
     const token = await auth0.getTokenSilently();
-    const response = await fetch("/api/offer/publish", {
+    const response = await fetch("http://localhost:3001/api/offer/publish", {
       method: "post",
       body: data,
       headers: {
@@ -318,7 +318,7 @@ const formSendRequest = async (auth0, data) => {
   try {
     
     const token = await auth0.getTokenSilently();
-    const response = await fetch("/api/request/create", {
+    const response = await fetch("http://localhost:3001/api/request/create", {
       method: "post",
       body: data,
       headers: {
@@ -347,8 +347,8 @@ const formSendUser = async (auth0, data) => {
     var apiLink;
     const aType = document.getElementById( "accType" ).value;
     if (aType == "refugee")
-      apiLink = "/api/refugee/register";
-    else apiLink ="/api/donor/register"; 
+      apiLink = "http://localhost:3001/api/refugee/register";
+    else apiLink ="http://localhost:3001/api/donor/register"; 
 
     const token = await auth0.getTokenSilently();
     const response = await fetch(apiLink, {

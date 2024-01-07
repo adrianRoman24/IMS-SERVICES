@@ -1,4 +1,4 @@
-const { initRabbit, log } = require("../utils/utils");
+const { initRabbit, log } = require("../../../utils/utils");
 const config = require("../config/config.json");
 const nodemailer = require('nodemailer');
 
